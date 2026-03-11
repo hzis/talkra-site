@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Talkra — AI Voice Agents for Business</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #f1f5f9; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid #1e293b; }
+    .logo { font-size: 22px; font-weight: 700; color: #10b981; }
+    .nav-cta { background: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; }
+    .hero { text-align: center; padding: 100px 24px 80px; max-width: 800px; margin: 0 auto; }
+    .badge { display: inline-block; background: #10b98120; color: #10b981; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 24px; border: 1px solid #10b98140; }
+    h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 800; line-height: 1.1; margin-bottom: 24px; }
+    h1 span { color: #10b981; }
+    .subtitle { font-size: 20px; color: #94a3b8; line-height: 1.6; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; }
+    .btn-primary { background: #10b981; color: white; padding: 16px 32px; border-radius: 10px; text-decoration: none; font-size: 18px; font-weight: 700; }
+    .btn-secondary { background: transparent; color: #f1f5f9; padding: 16px 32px; border-radius: 10px; text-decoration: none; font-size: 18px; font-weight: 600; border: 1px solid #334155; }
+    .stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; margin-bottom: 80px; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 36px; font-weight: 800; color: #10b981; }
+    .stat-label { font-size: 14px; color: #64748b; margin-top: 4px; }
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto 80px; padding: 0 24px; }
+    .feature { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 28px; }
+    .feature-icon { font-size: 32px; margin-bottom: 16px; }
+    .feature h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .feature p { color: #94a3b8; font-size: 15px; line-height: 1.5; }
+    .cta-section { text-align: center; padding: 80px 24px; background: #1e293b; }
+    .cta-section h2 { font-size: 36px; font-weight: 800; margin-bottom: 16px; }
+    .cta-section p { color: #94a3b8; margin-bottom: 32px; font-size: 18px; }
+    footer { text-align: center; padding: 40px; color: #475569; font-size: 14px; }
+    footer a { color: #10b981; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">Talkra</div>
+    <a href="https://hzis.github.io/ai_voice/" class="nav-cta">Get the Guide →</a>
+  </nav>
+
+  <div class="hero">
+    <div class="badge">🤖 AI Voice Agents</div>
+    <h1>Your Business Runs.<br><span>Even While You Sleep.</span></h1>
+    <p class="subtitle">Talkra deploys AI voice agents that answer calls, qualify leads, and book appointments — 24/7, without the overhead.</p>
+    <div class="cta-group">
+      <a href="https://hzis.github.io/ai_voice/" class="btn-primary">Build Your Own Agent →</a>
+      <a href="mailto:talkra.ai@gmail.com" class="btn-secondary">Book a Demo</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num">&lt;4s</div><div class="stat-label">Response latency</div></div>
+      <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Always available</div></div>
+      <div class="stat"><div class="stat-num">$0</div><div class="stat-label">Per answered call</div></div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon">🎙️</div>
+      <h3>Natural Voice</h3>
+      <p>Human-like conversations powered by open-source LLMs + TTS. No robotic scripts.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📅</div>
+      <h3>Auto Scheduling</h3>
+      <p>Integrates with Google Calendar to book appointments in real time during the call.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🏢</div>
+      <h3>Multi-Industry</h3>
+      <p>Solar, dental, legal, property management — custom prompts per vertical.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>Your Infrastructure</h3>
+      <p>No vendor lock-in. Runs on your server with Whisper, Llama, and Twilio.</p>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2>Ready to build your AI voice agent?</h2>
+    <p>Get the 68-page setup guide and ship in 7 days.</p>
+    <a href="https://hzis.github.io/ai_voice/" class="btn-primary">Get the Guide — $49</a>
+  </div>
+
+  <footer>
+    © 2026 Talkra · <a href="mailto:talkra.ai@gmail.com">talkra.ai@gmail.com</a>
+  </footer>
+</body>
+</html>
