@@ -1,5 +1,5 @@
-# Cloudflare Pages auto-serves directoryname/index.html for /directoryname/
-# These redirects handle paths without trailing slash
-/tools/roi-calculator /tools/roi-calculator/ 301
-/landing-pages/solar-ai-agent /landing-pages/solar-ai-agent/ 301
-/thank-you /thank-you/ 301
+# Canonical clean URLs → folder/index.html (Cloudflare Pages serves these natively)
+# No SPA catch-all — static files served directly from folder structure
+/tools/roi-calculator        /tools/roi-calculator/        301
+/landing-pages/solar-ai-agent  /landing-pages/solar-ai-agent/  301
+/thank-you                   /thank-you/                   301
