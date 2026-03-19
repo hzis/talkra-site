@@ -1,8 +1,5 @@
-# Explicit routes for static files (prevents SPA catch-all from intercepting)
+# Clean URL aliases for landing pages
 /tools/roi-calculator /tools/roi-calculator.html 200
 /tools/roi-calculator/ /tools/roi-calculator.html 200
 /landing-pages/solar-ai-agent /landing-pages/solar-ai-agent/index.html 200
 /landing-pages/solar-ai-agent/ /landing-pages/solar-ai-agent/index.html 200
-
-# SPA fallback for everything else (keep existing behavior for main site)
-/* /index.html 200
