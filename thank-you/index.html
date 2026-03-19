@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You — Talkra AI Voice Guide</title>
+<style>
+:root { --bg:#0a0a0f; --accent:#6c63ff; --green:#4ecdc4; --red:#e17055; --text:#e8e8f0; --text2:#9494a8; --border:#2a2a3e; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 24px; text-align:center; }
+.card { background:#12121a; border:1px solid var(--border); border-radius:16px; padding:48px 40px; max-width:520px; width:100%; }
+.icon { font-size:56px; margin-bottom:20px; }
+h1 { font-size:28px; font-weight:800; margin-bottom:12px; }
+p { color:var(--text2); font-size:16px; line-height:1.7; margin-bottom:24px; }
+.badge { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:8px; font-size:15px; font-weight:600; margin-bottom:24px; }
+.badge.ok  { background:rgba(78,205,196,.15); border:1px solid var(--green); color:var(--green); }
+.badge.err { background:rgba(225,112,85,.12); border:1px solid var(--red);   color:var(--red); }
+.divider { border:none; border-top:1px solid var(--border); margin:28px 0; }
+.support { font-size:14px; color:var(--text2); }
+.support a { color:var(--accent); }
+a.btn { display:inline-block; background:var(--accent); color:#fff; padding:14px 36px; border-radius:8px; font-size:16px; font-weight:700; text-decoration:none; transition:transform .2s; }
+a.btn:hover { transform:translateY(-2px); }
+#denied { display:none; }
+#confirmed { display:none; }
+</style>
+</head>
+<body>
+<div class="card">
+  <!-- Confirmed purchase -->
+  <div id="confirmed">
+    <div class="icon">🎉</div>
+    <h1>You're in. Let's build.</h1>
+    <div class="badge ok">✅ Purchase confirmed</div>
+    <p>
+      Your <strong>AI Voice Sales Agent Guide</strong> is on its way — check your inbox at the email you used at checkout.
+      <br><br>
+      Didn't get it within a few minutes? Check spam, or email us and we'll resend.
+    </p>
+    <hr class="divider">
+    <p class="support">
+      Questions? <a href="mailto:support@talkra.ai">support@talkra.ai</a><br>
+      7-day money-back guarantee — no questions asked.
+    </p>
+  </div>
+
+  <!-- Access denied (no session_id) -->
+  <div id="denied">
+    <div class="icon">🔒</div>
+    <h1>Access Denied</h1>
+    <div class="badge err">❌ No valid session</div>
+    <p>This page is only accessible after a completed purchase.<br>If you've already bought the guide, check your email for the delivery.</p>
+    <br>
+    <a href="https://hzis.github.io/ai_voice/" class="btn">← Back to the guide</a>
+    <hr class="divider">
+    <p class="support">Need help? <a href="mailto:support@talkra.ai">support@talkra.ai</a></p>
+  </div>
+</div>
+
+<script>
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+  if (sessionId && sessionId.startsWith('cs_')) {
+    document.getElementById('confirmed').style.display = 'block';
+  } else {
+    document.getElementById('denied').style.display = 'block';
+  }
+})();
+</script>
+</body>
+</html>

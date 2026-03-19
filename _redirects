@@ -1,5 +1,5 @@
-# Clean URL aliases for landing pages
-/tools/roi-calculator /tools/roi-calculator.html 200
-/tools/roi-calculator/ /tools/roi-calculator.html 200
-/landing-pages/solar-ai-agent /landing-pages/solar-ai-agent/index.html 200
-/landing-pages/solar-ai-agent/ /landing-pages/solar-ai-agent/index.html 200
+# Cloudflare Pages auto-serves directoryname/index.html for /directoryname/
+# These redirects handle paths without trailing slash
+/tools/roi-calculator /tools/roi-calculator/ 301
+/landing-pages/solar-ai-agent /landing-pages/solar-ai-agent/ 301
+/thank-you /thank-you/ 301
