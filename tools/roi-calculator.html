@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solar AI ROI Calculator — Talkra</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand: #F97316; --brand-dk: #EA580C; --brand-lt: #FFF7ED;
+      --dark: #0F172A; --muted: #64748B; --border: #E2E8F0;
+      --light: #F8FAFC; --white: #fff;
+      --green: #16A34A; --green-lt: #F0FDF4; --green-bd: #BBF7D0;
+      --red: #DC2626; --red-lt: #FEF2F2;
+      --radius: 14px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light); color: var(--dark);
+      min-height: 100vh; padding: 32px 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrapper { max-width: 860px; margin: 0 auto; }
+
+    header { text-align: center; margin-bottom: 40px; }
+    .logo { font-size: 1.1rem; font-weight: 800; color: var(--dark); margin-bottom: 16px; }
+    .logo em { color: var(--brand); font-style: normal; }
+    header h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 900; letter-spacing: -.02em; margin-bottom: 10px; }
+    header p { color: var(--muted); font-size: 1rem; }
+
+    .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 680px) { .layout { grid-template-columns: 1fr; } }
+
+    /* ─── MOBILE (375px) ────────────────────────────────────── */
+    @media (max-width: 600px) {
+      body { padding: 20px 12px; }
+      .wrapper { max-width: 100%; }
+
+      header { margin-bottom: 28px; }
+      header h1 { font-size: 1.5rem; }
+      header p { font-size: .92rem; }
+
+      /* Cards */
+      .card { padding: 20px 16px; }
+      .card-title { font-size: .68rem; }
+
+      /* Input fields */
+      .field { margin-bottom: 22px; }
+      .field label { font-size: .9rem; }
+      input[type="range"] {
+        height: 8px;      /* Easier touch target */
+        min-height: 44px; /* Tall touch zone */
+        padding: 18px 0;
+        -webkit-appearance: none;
+      }
+      .val-display { font-size: 1rem; padding: 4px 12px; }
+
+      /* Results — card-based, not table rows */
+      .results { gap: 8px; }
+      .result-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .result-label { font-size: .85rem; }
+      .result-val { font-size: 1.15rem; }
+
+      /* ROI hero */
+      .roi-hero { padding: 24px 16px; grid-column: auto; }
+      .roi-hero .big { font-size: 2.5rem; }
+
+      /* Compare grid → single column */
+      .compare-grid { grid-template-columns: 1fr; grid-column: auto; }
+      .compare-card { padding: 16px; }
+      .compare-card .cc-cost { font-size: 1.5rem; }
+
+      /* Extra deals */
+      .extra-deals { grid-column: auto; flex-direction: column; align-items: flex-start; gap: 12px; }
+      .extra-deals .highlight { margin-left: 0; text-align: left; }
+
+      /* CTA bar */
+      .cta-bar {
+        grid-column: auto;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 16px;
+      }
+      .cta-bar p { font-size: .88rem; }
+      .btn, .btn-ghost {
+        width: 100%;
+        min-height: 44px;
+        padding: 13px 20px;
+        font-size: 1rem;
+        text-align: center;
+        display: block;
+        box-sizing: border-box;
+      }
+
+      /* Prevent horizontal scroll */
+      .layout, .compare-grid, .extra-deals, .roi-hero, .cta-bar {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+    }
+
+    .card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+    }
+    .card-title {
+      font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
+    }
+
+    /* INPUT SIDE */
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: .85rem; font-weight: 600; color: var(--dark); margin-bottom: 6px;
+    }
+    .field label .hint { font-weight: 400; color: var(--muted); font-size: .78rem; }
+    .input-wrap { position: relative; }
+    .input-wrap .prefix, .input-wrap .suffix {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      font-size: .9rem; font-weight: 600; color: var(--muted);
+    }
+    .input-wrap .prefix { left: 12px; }
+    .input-wrap .suffix { right: 12px; }
+    input[type="range"] {
+      width: 100%; height: 6px; accent-color: var(--brand);
+      cursor: pointer; margin-top: 2px;
+    }
+    .range-labels { display: flex; justify-content: space-between; font-size: .72rem; color: #94A3B8; margin-top: 4px; }
+    .val-display {
+      display: inline-block; background: var(--brand-lt);
+      border: 1px solid rgba(249,115,22,.25);
+      color: var(--brand); font-weight: 800; font-size: .9rem;
+      padding: 2px 10px; border-radius: 6px; min-width: 56px; text-align: center;
+    }
+
+    /* OUTPUT SIDE */
+    .results { display: flex; flex-direction: column; gap: 0; }
+    .result-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 13px 0; border-bottom: 1px solid var(--border);
+    }
+    .result-row:last-child { border-bottom: none; }
+    .result-label { font-size: .88rem; color: var(--muted); }
+    .result-val { font-size: 1.05rem; font-weight: 700; color: var(--dark); }
+    .result-val.good { color: var(--green); }
+    .result-val.bad  { color: var(--red); }
+
+    .roi-hero {
+      background: linear-gradient(135deg, var(--dark) 0%, #1E293B 100%);
+      border-radius: var(--radius); padding: 28px; margin-top: 24px;
+      text-align: center; grid-column: 1 / -1;
+    }
+    .roi-hero .lbl { color: #64748B; font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+    .roi-hero .big { font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 900; color: var(--brand); line-height: 1; }
+    .roi-hero .sub { color: #94A3B8; font-size: .9rem; margin-top: 8px; }
+
+    .compare-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      grid-column: 1 / -1;
+    }
+    .compare-card {
+      border-radius: var(--radius); padding: 20px; text-align: center;
+    }
+    .compare-card.human { background: var(--red-lt); border: 1px solid #FECACA; }
+    .compare-card.ai    { background: var(--green-lt); border: 1px solid var(--green-bd); }
+    .compare-card .cc-label { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px; }
+    .compare-card.human .cc-label { color: var(--red); }
+    .compare-card.ai .cc-label    { color: var(--green); }
+    .compare-card .cc-cost { font-size: 1.8rem; font-weight: 900; margin-bottom: 4px; }
+    .compare-card.human .cc-cost { color: var(--red); }
+    .compare-card.ai .cc-cost    { color: var(--green); }
+    .compare-card .cc-sub { font-size: .8rem; color: var(--muted); }
+
+    .extra-deals {
+      grid-column: 1 / -1;
+      background: var(--brand-lt); border: 1px solid rgba(249,115,22,.25);
+      border-radius: var(--radius); padding: 20px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .extra-deals .icon { font-size: 2rem; flex-shrink: 0; }
+    .extra-deals .text h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .extra-deals .text p  { font-size: .88rem; color: var(--muted); }
+    .extra-deals .highlight { margin-left: auto; text-align: right; flex-shrink: 0; }
+    .extra-deals .highlight .num { font-size: 1.6rem; font-weight: 900; color: var(--brand); }
+    .extra-deals .highlight .lbl { font-size: .75rem; color: var(--muted); }
+
+    .cta-bar {
+      grid-column: 1 / -1;
+      display: flex; gap: 12px; flex-wrap: wrap;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px;
+      align-items: center; justify-content: space-between;
+    }
+    .cta-bar p { color: var(--muted); font-size: .9rem; }
+    .cta-bar p strong { color: var(--dark); }
+    .btn {
+      background: var(--brand); color: var(--white);
+      padding: 12px 28px; border-radius: 8px;
+      font-weight: 700; font-size: .95rem; text-decoration: none;
+      border: none; cursor: pointer; white-space: nowrap;
+      transition: background .2s;
+    }
+    .btn:hover { background: var(--brand-dk); }
+    .btn-ghost {
+      background: transparent; color: var(--dark);
+      padding: 12px 20px; border-radius: 8px;
+      font-weight: 600; font-size: .9rem;
+      border: 1px solid var(--border); cursor: pointer; white-space: nowrap;
+      transition: border-color .2s;
+    }
+    .btn-ghost:hover { border-color: var(--brand); color: var(--brand); }
+
+    footer { text-align: center; color: #94A3B8; font-size: .8rem; margin-top: 40px; }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="logo">Talk<em>ra</em></div>
+    <h1>Solar AI ROI Calculator</h1>
+    <p>See exactly how much you'd save — and earn — by replacing your appointment setters with AI.</p>
+  </header>
+
+  <div class="layout">
+
+    <!-- INPUT CARD -->
+    <div class="card">
+      <div class="card-title">📊 Your Business Numbers</div>
+
+      <div class="field">
+        <label>Monthly Leads <span class="hint">form fills, inbound calls, ads</span></label>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <input type="range" id="leads" min="20" max="500" value="150" step="10" oninput="calc()" />
+          <span class="val-display" id="leads-val">150</span>
+        </div>
+        <div class="range-labels"><span>20</span><span>500</span></div>
+      </div>
+
+      <div class="field">
+        <label>Homeowner Rate <span class="hint">% of leads who qualify</span></label>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <input type="range" id="owner-pct" min="30" max="90" value="60" step="5" oninput="calc()" />
+          <span class="val-display" id="owner-val">60%</span>
+        </div>
+        <div class="range-labels"><span>30%</span><span>90%</span></div>
+      </div>
+
+      <div class="field">
+        <label>Current Lead Response Time <span class="hint">avg minutes to first call</span></label>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <input type="range" id="response" min="5" max="120" value="30" step="5" oninput="calc()" />
+          <span class="val-display" id="response-val">30m</span>
+        </div>
+        <div class="range-labels"><span>5 min</span><span>2 hrs</span></div>
+      </div>
+
+      <div class="field">
+        <label>Human Rep Annual Salary <span class="hint">base salary only</span></label>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <input type="range" id="salary" min="35000" max="90000" value="55000" step="2500" oninput="calc()" />
+          <span class="val-display" id="salary-val">$55k</span>
+        </div>
+        <div class="range-labels"><span>$35k</span><span>$90k</span></div>
+      </div>
+
+      <div class="field">
+        <label>Number of Appointment Setters</label>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <input type="range" id="reps" min="1" max="10" value="2" step="1" oninput="calc()" />
+          <span class="val-display" id="reps-val">2</span>
+        </div>
+        <div class="range-labels"><span>1</span><span>10</span></div>
+      </div>
+
+      <div class="field">
+        <label>Close Rate <span class="hint">% of appointments → deals</span></label>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <input type="range" id="close" min="10" max="50" value="25" step="5" oninput="calc()" />
+          <span class="val-display" id="close-val">25%</span>
+        </div>
+        <div class="range-labels"><span>10%</span><span>50%</span></div>
+      </div>
+
+      <div class="field">
+        <label>Avg Deal Value (your commission) <span class="hint">$/deal</span></label>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <input type="range" id="deal" min="2000" max="20000" value="8000" step="500" oninput="calc()" />
+          <span class="val-display" id="deal-val">$8k</span>
+        </div>
+        <div class="range-labels"><span>$2k</span><span>$20k</span></div>
+      </div>
+
+      <div class="field">
+        <label>Talkra Plan
+          <span class="hint">based on your volume</span>
+        </label>
+        <select id="plan" onchange="calc()" style="width:100%;padding:9px 12px;border:1px solid #E2E8F0;border-radius:8px;font-family:inherit;font-size:.9rem;cursor:pointer;">
+          <option value="149">Starter — $149/mo (300 min)</option>
+          <option value="399" selected>Growth — $399/mo (1,500 min)</option>
+          <option value="997">Scale — $997/mo (6,000 min)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- RESULT CARD -->
+    <div class="card">
+      <div class="card-title">💰 Your Results</div>
+      <div class="results">
+        <div class="result-row">
+          <span class="result-label">Monthly leads</span>
+          <span class="result-val" id="r-leads">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Qualified leads (homeowners)</span>
+          <span class="result-val" id="r-qualified">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Appts booked — Human reps</span>
+          <span class="result-val bad" id="r-appts-human">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Appts booked — AI (2× faster response)</span>
+          <span class="result-val good" id="r-appts-ai">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Deals closed — Human reps/mo</span>
+          <span class="result-val bad" id="r-deals-human">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Deals closed — AI/mo</span>
+          <span class="result-val good" id="r-deals-ai">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Human rep total annual cost</span>
+          <span class="result-val bad" id="r-human-cost">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Talkra annual cost</span>
+          <span class="result-val good" id="r-ai-cost">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Cost per appointment — Humans</span>
+          <span class="result-val bad" id="r-cpa-human">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Cost per appointment — AI</span>
+          <span class="result-val good" id="r-cpa-ai">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROI HERO -->
+    <div class="roi-hero">
+      <div class="lbl">Your Estimated Annual Savings + Extra Revenue</div>
+      <div class="big" id="r-total-roi">—</div>
+      <div class="sub" id="r-roi-sub">—</div>
+    </div>
+
+    <!-- COMPARE CARDS -->
+    <div class="compare-grid">
+      <div class="compare-card human">
+        <div class="cc-label">🧑 Human Reps</div>
+        <div class="cc-cost" id="r-human-mo">—</div>
+        <div class="cc-sub">per month (fully loaded)</div>
+      </div>
+      <div class="compare-card ai">
+        <div class="cc-label">🤖 Talkra</div>
+        <div class="cc-cost" id="r-ai-mo">—</div>
+        <div class="cc-sub">per month (plan fee only)</div>
+      </div>
+    </div>
+
+    <!-- EXTRA DEALS -->
+    <div class="extra-deals">
+      <div class="icon">⚡</div>
+      <div class="text">
+        <h4>Deals Won from Faster Response</h4>
+        <p>AI answers in &lt;5 seconds vs your current <span id="r-response-text">30 min</span>. Speed-to-lead converts 10× better. Based on your close rate.</p>
+      </div>
+      <div class="highlight">
+        <div class="num" id="r-extra-rev">—</div>
+        <div class="lbl">extra revenue/mo</div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-bar">
+      <p>Ready to see these numbers with <strong>your actual leads</strong>? Start your free 7-day pilot — no credit card needed.</p>
+      <div style="display:flex;gap:10px;">
+        <button class="btn-ghost" onclick="window.print()">📥 Save as PDF</button>
+        <a href="#demo" class="btn">🎯 Start Free Pilot</a>
+      </div>
+    </div>
+
+  </div><!-- /layout -->
+
+  <footer>
+    <p>Estimates based on industry benchmarks: 30-45% turnover cost, 1.4× salary for fully-loaded cost, 10× conversion multiplier at 5-min vs 30-min response (MIT Lead Response Management Study). Results may vary.</p>
+  </footer>
+
+</div>
+
+<script>
+  function fmt(n, prefix='$') {
+    if (n >= 1000000) return prefix + (n/1000000).toFixed(1) + 'M';
+    if (n >= 1000)    return prefix + (n/1000).toFixed(0) + 'K';
+    return prefix + Math.round(n).toLocaleString();
+  }
+  function fmtMo(n) { return fmt(n) + '/mo'; }
+
+  function calc() {
+    const leads      = +document.getElementById('leads').value;
+    const ownerPct   = +document.getElementById('owner-pct').value / 100;
+    const responseMn = +document.getElementById('response').value;
+    const salary     = +document.getElementById('salary').value;
+    const numReps    = +document.getElementById('reps').value;
+    const closeRate  = +document.getElementById('close').value / 100;
+    const dealVal    = +document.getElementById('deal').value;
+    const aiPlanMo   = +document.getElementById('plan').value;
+
+    // Update display labels
+    document.getElementById('leads-val').textContent   = leads;
+    document.getElementById('owner-val').textContent   = (+document.getElementById('owner-pct').value) + '%';
+    document.getElementById('response-val').textContent= responseMn + 'm';
+    document.getElementById('salary-val').textContent  = '$' + (salary/1000).toFixed(0) + 'k';
+    document.getElementById('reps-val').textContent    = numReps;
+    document.getElementById('close-val').textContent   = (+document.getElementById('close').value) + '%';
+    document.getElementById('deal-val').textContent    = '$' + (dealVal/1000).toFixed(0) + 'k';
+    document.getElementById('r-response-text').textContent = responseMn + ' min';
+
+    // === HUMAN CALCULATION ===
+    const qualified       = Math.round(leads * ownerPct);
+    // Response time penalty: MIT study — 5min = 1.0× baseline, 30min = 0.3×, 2hr = 0.1×
+    const responseMultHuman = Math.max(0.1, 1 - (responseMn - 5) / 120 * 0.9);
+    // Reps can handle limited volume per month (assume ~120 qualified calls/rep/mo)
+    const repCapacity     = numReps * 120;
+    const handledByHuman  = Math.min(qualified, repCapacity);
+    const apptsHuman      = Math.round(handledByHuman * responseMultHuman * 0.7); // 70% of handled → book
+    const dealsHuman      = Math.round(apptsHuman * closeRate);
+
+    // Fully-loaded cost: salary × 1.4 (benefits) + 30% turnover cost
+    const humanAnnual     = salary * 1.4 * numReps * 1.15; // 1.15 for turnover
+    const humanMo         = humanAnnual / 12;
+
+    // === AI CALCULATION ===
+    // AI: instant response (<5s) → full speed multiplier, handles ALL qualified leads
+    const apptsAI         = Math.round(qualified * 0.85); // 85% conversion of qualified
+    const dealsAI         = Math.round(apptsAI * closeRate);
+
+    const aiAnnual        = aiPlanMo * 12;
+    const aiMo            = aiPlanMo;
+
+    // === CPA ===
+    const cpaHuman = apptsHuman > 0 ? humanMo / apptsHuman : 0;
+    const cpaAI    = apptsAI    > 0 ? aiMo    / apptsAI    : 0;
+
+    // === EXTRA REVENUE FROM SPEED ===
+    const extraDeals   = Math.max(0, dealsAI - dealsHuman);
+    const extraRevMo   = extraDeals * dealVal;
+
+    // === TOTAL ROI ===
+    const annualSavings  = humanAnnual - aiAnnual;
+    const annualExtraRev = extraRevMo * 12;
+    const totalRoi       = annualSavings + annualExtraRev;
+
+    // === UPDATE DOM ===
+    document.getElementById('r-leads').textContent         = leads;
+    document.getElementById('r-qualified').textContent     = qualified;
+    document.getElementById('r-appts-human').textContent   = apptsHuman + '/mo';
+    document.getElementById('r-appts-ai').textContent      = apptsAI + '/mo';
+    document.getElementById('r-deals-human').textContent   = dealsHuman + '/mo';
+    document.getElementById('r-deals-ai').textContent      = dealsAI + '/mo';
+    document.getElementById('r-human-cost').textContent    = fmt(humanAnnual) + '/yr';
+    document.getElementById('r-ai-cost').textContent       = fmt(aiAnnual) + '/yr';
+    document.getElementById('r-cpa-human').textContent     = cpaHuman > 0 ? fmt(cpaHuman) : '—';
+    document.getElementById('r-cpa-ai').textContent        = cpaAI > 0 ? fmt(cpaAI) : '—';
+    document.getElementById('r-human-mo').textContent      = fmtMo(humanMo);
+    document.getElementById('r-ai-mo').textContent         = fmtMo(aiMo);
+    document.getElementById('r-extra-rev').textContent     = fmt(extraRevMo);
+
+    document.getElementById('r-total-roi').textContent = fmt(totalRoi);
+    document.getElementById('r-roi-sub').textContent   =
+      `$${fmt(annualSavings).replace('$','')} in rep savings + $${fmt(annualExtraRev).replace('$','')} in extra deals per year`;
+  }
+
+  calc(); // run on load
+</script>
+</body>
+</html>

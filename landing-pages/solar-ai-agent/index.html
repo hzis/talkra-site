@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarVoice AI — Book More Solar Appointments on Autopilot</title>
+    <meta name="description" content="AI-powered sales agent that qualifies solar leads and books appointments 24/7. 3-10x cheaper than human agents. Free demo available.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #F97316;
+            --orange-dark: #EA580C;
+            --orange-light: #FFF7ED;
+            --dark: #0F172A;
+            --gray-900: #1E293B;
+            --gray-700: #334155;
+            --gray-500: #64748B;
+            --gray-300: #CBD5E1;
+            --gray-100: #F1F5F9;
+            --white: #FFFFFF;
+            --green: #22C55E;
+            --green-dark: #16A34A;
+            --blue: #3B82F6;
+            --yellow: #FBBF24;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--gray-100);
+            z-index: 100;
+            padding: 16px 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+        .nav-cta {
+            background: var(--orange);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--orange-dark);
+        }
+
+        /* HERO */
+        .hero {
+            padding: 140px 0 80px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--orange-light) 0%, var(--white) 100%);
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--orange-light);
+            border: 1px solid var(--orange);
+            color: var(--orange-dark);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.15;
+            max-width: 800px;
+            margin: 0 auto 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 .highlight {
+            color: var(--orange);
+        }
+
+        .hero p.subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-500);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .btn-primary {
+            background: var(--orange);
+            color: white;
+            padding: 16px 36px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: var(--orange-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(249,115,22,0.3);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--dark);
+            padding: 16px 36px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 2px solid var(--gray-300);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        .hero-proof {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            color: var(--gray-500);
+            font-size: 0.95rem;
+        }
+
+        .hero-proof span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* PROBLEM */
+        .problem {
+            padding: 80px 0;
+            background: var(--gray-900);
+            color: white;
+        }
+
+        .problem h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .problem .subtitle {
+            text-align: center;
+            color: var(--gray-300);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            font-size: 1.1rem;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .problem-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .problem-card .icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .problem-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+        }
+
+        .problem-card p {
+            color: var(--gray-300);
+            font-size: 0.95rem;
+        }
+
+        /* ROI SECTION */
+        .roi {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .roi h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 48px;
+        }
+
+        .roi-table-wrap {
+            overflow-x: auto;
+        }
+
+        .roi-table {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            font-size: 1rem;
+        }
+
+        .roi-table th {
+            background: var(--gray-100);
+            padding: 16px 24px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid var(--gray-300);
+        }
+
+        .roi-table td {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .roi-table .human {
+            color: var(--gray-500);
+        }
+
+        .roi-table .ai {
+            color: var(--green-dark);
+            font-weight: 700;
+        }
+
+        .roi-table tr:last-child td {
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-top: 2px solid var(--dark);
+        }
+
+        .roi-note {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--gray-500);
+            font-size: 0.95rem;
+        }
+
+        .roi-note strong {
+            color: var(--green-dark);
+        }
+
+        /* HOW IT WORKS */
+        .how {
+            padding: 80px 0;
+            background: var(--gray-100);
+        }
+
+        .how h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 48px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 32px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            background: var(--orange);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.3rem;
+            margin: 0 auto 16px;
+        }
+
+        .step h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            color: var(--gray-500);
+            font-size: 0.95rem;
+        }
+
+        /* FEATURES */
+        .features {
+            padding: 80px 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 48px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            padding: 32px;
+            border: 1px solid var(--gray-100);
+            border-radius: 16px;
+            transition: all 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--orange);
+            box-shadow: 0 4px 16px rgba(249,115,22,0.1);
+        }
+
+        .feature-card .icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: var(--gray-500);
+            font-size: 0.95rem;
+        }
+
+        /* TESTIMONIAL / SOCIAL PROOF */
+        .social-proof {
+            padding: 80px 0;
+            background: var(--orange-light);
+        }
+
+        .social-proof h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 48px;
+        }
+
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .metric {
+            padding: 24px;
+        }
+
+        .metric .number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--orange);
+            line-height: 1;
+        }
+
+        .metric .label {
+            color: var(--gray-700);
+            font-size: 1rem;
+            margin-top: 8px;
+        }
+
+        /* PRICING */
+        .pricing {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .pricing h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .pricing .subtitle {
+            color: var(--gray-500);
+            margin-bottom: 48px;
+            font-size: 1.1rem;
+        }
+
+        .pricing-card {
+            max-width: 520px;
+            margin: 0 auto;
+            background: var(--white);
+            border: 2px solid var(--orange);
+            border-radius: 20px;
+            padding: 48px 40px;
+            text-align: left;
+            position: relative;
+        }
+
+        .pricing-card .popular {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--orange);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .pricing-card .price {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .pricing-card .price span {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--gray-500);
+        }
+
+        .pricing-card .plus {
+            color: var(--green-dark);
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 24px;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .pricing-card ul li {
+            padding: 10px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 1rem;
+            color: var(--gray-700);
+        }
+
+        .pricing-card ul li::before {
+            content: "✓";
+            color: var(--green);
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .pricing-card .btn-primary {
+            width: 100%;
+            justify-content: center;
+            font-size: 1.15rem;
+            padding: 18px;
+        }
+
+        .pricing-guarantee {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--gray-500);
+            font-size: 0.9rem;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 80px 0;
+            background: var(--gray-100);
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 48px;
+        }
+
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 20px 24px;
+            text-align: left;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: inherit;
+            color: var(--dark);
+        }
+
+        .faq-question::after {
+            content: "+";
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--orange);
+            transition: transform 0.2s;
+        }
+
+        .faq-item.open .faq-question::after {
+            content: "−";
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer-inner {
+            padding: 0 24px 20px;
+            color: var(--gray-500);
+            line-height: 1.7;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+        }
+
+        /* FINAL CTA */
+        .final-cta {
+            padding: 100px 0;
+            text-align: center;
+            background: var(--dark);
+            color: white;
+        }
+
+        .final-cta h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 16px;
+            font-weight: 800;
+        }
+
+        .final-cta p {
+            color: var(--gray-300);
+            font-size: 1.15rem;
+            margin-bottom: 32px;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-cta .btn-primary {
+            font-size: 1.2rem;
+            padding: 18px 48px;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 32px 0;
+            text-align: center;
+            color: var(--gray-500);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero { padding: 120px 0 60px; }
+            .problem, .roi, .how, .features, .social-proof, .pricing, .faq, .final-cta {
+                padding: 60px 0;
+            }
+            .pricing-card { padding: 36px 24px; }
+            .hero-proof { gap: 20px; }
+        }
+
+        /* ── MOBILE (375px) ──────────────────────────────────── */
+        @media (max-width: 480px) {
+            /* Global */
+            body { font-size: 15px; overflow-x: hidden; }
+            .container { padding: 0 16px; max-width: 100%; }
+
+            /* Nav */
+            nav { padding: 12px 0; }
+            .nav-cta { padding: 9px 16px; font-size: .88rem; min-height: 44px; display: flex; align-items: center; }
+            .logo { font-size: 1.25rem; }
+
+            /* Sections */
+            .hero { padding: 90px 0 48px; }
+            .problem, .roi, .how, .features, .social-proof,
+            .pricing, .faq, .final-cta { padding: 48px 0; }
+
+            /* Hero */
+            .hero h1 { font-size: clamp(1.7rem, 7.5vw, 2.2rem); line-height: 1.2; }
+            .hero .subtitle { font-size: .95rem; }
+            .hero-ctas {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .hero-proof { flex-direction: column; gap: 10px; text-align: center; }
+
+            /* Buttons — full width, ≥44px */
+            .btn-primary, .btn-secondary,
+            .pricing-card .btn-primary,
+            .final-cta .btn-primary {
+                width: 100%;
+                min-height: 44px;
+                padding: 13px 20px;
+                font-size: 1rem;
+                text-align: center;
+                justify-content: center;
+                box-sizing: border-box;
+                display: flex;
+            }
+
+            /* Grids → single column */
+            [class*="-grid"],
+            [style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 14px; }
+
+            /* Pricing */
+            .pricing-card { padding: 24px 16px; }
+
+            /* Section headings */
+            h2 { font-size: clamp(1.4rem, 6vw, 1.9rem); }
+
+            /* Forms / inputs */
+            input, textarea, select {
+                width: 100%;
+                min-height: 44px;
+                font-size: 16px;
+                padding: 10px 14px;
+                box-sizing: border-box;
+            }
+
+            /* No horizontal scroll */
+            * { max-width: 100%; }
+            img, video, iframe { max-width: 100%; height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAV -->
+    <nav>
+        <div class="container">
+            <div class="logo">Solar<span>Voice</span> AI</div>
+            <a href="#demo" class="nav-cta">Get Free Demo →</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="badge">🔥 AI-Powered Appointment Setting for Solar Companies</div>
+            <h1>Stop Losing Leads.<br>Your AI Agent Books <span class="highlight">Qualified Appointments 24/7</span></h1>
+            <p class="subtitle">An AI voice agent that answers calls, qualifies homeowners, and books solar consultations — while your team focuses on closing deals.</p>
+            <div class="hero-ctas">
+                <a href="#demo" class="btn-primary">🎯 Book a Free Demo</a>
+                <a href="#how" class="btn-secondary">▶ See How It Works</a>
+            </div>
+            <div class="hero-proof">
+                <span>⚡ Live in 48 hours</span>
+                <span>📞 24/7 availability</span>
+                <span>💰 3-10x cheaper than human reps</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="problem">
+        <div class="container">
+            <h2>Solar Leads Are Expensive. Losing Them Is Criminal.</h2>
+            <p class="subtitle">You're spending $2,000–$10,000/mo on lead gen. Here's where those leads go to die:</p>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="icon">⏰</div>
+                    <h3>78% of Leads Go to the First Responder</h3>
+                    <p>If you call back in 30 minutes instead of 5, your conversion rate drops 10x. After-hours? Leads call your competitor.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="icon">💸</div>
+                    <h3>Human Reps Cost $65K–$115K/Year</h3>
+                    <p>Salary, benefits, training, turnover (30-45% annual). And they only work 40 hours a week.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="icon">📉</div>
+                    <h3>Unqualified Appointments Waste Closer Time</h3>
+                    <p>Your sales team drives 45 minutes for a consultation — only to find out they're a renter with a 550 credit score.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI -->
+    <section class="roi">
+        <div class="container">
+            <h2>The Numbers Don't Lie</h2>
+            <div class="roi-table-wrap">
+                <table class="roi-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Human Rep</th>
+                            <th>SolarVoice AI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Annual cost</td>
+                            <td class="human">$65,000–$115,000</td>
+                            <td class="ai">$12,000–$24,000</td>
+                        </tr>
+                        <tr>
+                            <td>Availability</td>
+                            <td class="human">8 hrs/day, 5 days/wk</td>
+                            <td class="ai">24/7/365</td>
+                        </tr>
+                        <tr>
+                            <td>Speed to lead</td>
+                            <td class="human">5–30 min (if available)</td>
+                            <td class="ai">Instant — every time</td>
+                        </tr>
+                        <tr>
+                            <td>Sick days / turnover</td>
+                            <td class="human">15–25 days + 35% annual churn</td>
+                            <td class="ai">Zero</td>
+                        </tr>
+                        <tr>
+                            <td>Cost per qualified appointment</td>
+                            <td class="human">$150–$300</td>
+                            <td class="ai">$30–$80</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ROI (30 appts/month)</strong></td>
+                            <td class="human">$4,500–$9,000 spent</td>
+                            <td class="ai">$900–$2,400 spent</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="roi-note">Average solar installation = $25,000–$35,000. Close just <strong>2 extra deals/month</strong> and the AI pays for itself 10x over.</p>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how" id="how">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Lead Calls In</h3>
+                    <p>From your ads, website, or referrals — the AI answers instantly. No hold music. No voicemail.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>AI Qualifies</h3>
+                    <p>Homeowner? Own roof? Good credit? Electric bill over $150/mo? Confirmed in under 3 minutes.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Appointment Booked</h3>
+                    <p>Qualified leads get booked straight into your calendar. CRM updated. Your team gets notified.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>You Close the Deal</h3>
+                    <p>Show up to consultations with pre-qualified homeowners ready to go solar. Focus on what you do best: closing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="container">
+            <h2>Built for Solar Sales Teams</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">🗣️</div>
+                    <h3>Natural Voice Conversations</h3>
+                    <p>Not a robocall. Our AI sounds human, handles interruptions, and adapts to the conversation flow in real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📋</div>
+                    <h3>Solar-Specific Qualification</h3>
+                    <p>Custom-trained script: homeownership, roof condition, credit range, electric bill, utility provider — all confirmed before booking.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📅</div>
+                    <h3>Calendar & CRM Integration</h3>
+                    <p>Books directly into Google Calendar, Calendly, or ServiceTitan. Pushes data to GoHighLevel, HubSpot, or Salesforce.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🔄</div>
+                    <h3>Warm Transfer to Closers</h3>
+                    <p>Hot lead? The AI can transfer the call live to your best closer — no callback needed.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📊</div>
+                    <h3>Real-Time Dashboard</h3>
+                    <p>Track calls, appointments booked, qualification rates, and cost-per-appointment. Know your ROI daily.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🌙</div>
+                    <h3>After-Hours Capture</h3>
+                    <p>43% of solar inquiries happen outside business hours. Never miss a lead again — nights, weekends, holidays.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOCIAL PROOF -->
+    <section class="social-proof">
+        <div class="container">
+            <h2>AI Performance Benchmarks</h2>
+            <div class="metrics-row">
+                <div class="metric">
+                    <div class="number">&lt;5s</div>
+                    <div class="label">Average speed-to-answer</div>
+                </div>
+                <div class="metric">
+                    <div class="number">3-10x</div>
+                    <div class="label">Cheaper than human reps</div>
+                </div>
+                <div class="metric">
+                    <div class="number">24/7</div>
+                    <div class="label">Always available</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>Simple, Transparent Pricing</h2>
+            <p class="subtitle">No per-minute surprises. One flat rate + performance bonus.</p>
+            <div class="pricing-card">
+                <div class="popular">MOST POPULAR</div>
+                <div class="price">$1,497<span>/mo</span></div>
+                <div class="plus">+ $50 per qualified appointment booked</div>
+                <ul>
+                    <li>Unlimited inbound calls 24/7</li>
+                    <li>Custom solar qualification script</li>
+                    <li>CRM & calendar integration</li>
+                    <li>Live call transfer to closers</li>
+                    <li>Real-time analytics dashboard</li>
+                    <li>Dedicated account manager</li>
+                    <li>Weekly optimization calls</li>
+                    <li>Call recordings & transcripts</li>
+                </ul>
+                <a href="#demo" class="btn-primary">Start Free 7-Day Pilot →</a>
+            </div>
+            <p class="pricing-guarantee">🛡️ No long-term contract. Cancel anytime. Setup fee waived for first 10 customers.</p>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">Does it really sound like a human?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Yes. Our AI uses the latest voice synthesis with sub-second response times. It handles interruptions, pauses naturally, and adapts tone based on the conversation. Most callers can't tell the difference — and those who can are still impressed by how helpful it is.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">How long does setup take?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">48 hours or less. We configure your qualification script, connect your CRM and calendar, set up your phone number, and run test calls — all in under 2 business days. You'll be live before the week is over.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">What if the lead needs to talk to a real person?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">The AI can warm-transfer the call to your sales team in real-time. If no one is available, it books an appointment and ensures follow-up. You never lose the lead.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">How do you qualify leads?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Our solar-specific script confirms: homeownership status, roof ownership/condition, credit score range, monthly electric bill (>$150 threshold), utility provider, and timeline. Only fully qualified leads get booked as appointments.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">What CRMs do you integrate with?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">GoHighLevel, HubSpot, Salesforce, ServiceTitan, and any CRM with a REST API. Calendar integrations include Google Calendar, Calendly, and Cal.com. We also support Zapier for custom workflows.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Is there a contract or commitment?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">No long-term contracts. We start with a free 7-day pilot so you can see results before paying anything. After that, it's month-to-month. We earn your business every month.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta" id="demo">
+        <div class="container">
+            <h2>Ready to Book More Appointments<br>Without Hiring More Reps?</h2>
+            <p>Start your free 7-day pilot. See how many qualified appointments our AI books for you — no commitment, no risk.</p>
+            <a href="https://calendly.com" class="btn-primary" target="_blank">🎯 Schedule Your Free Demo Call</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>© 2026 SolarVoice AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const isOpen = item.classList.contains('open');
+                // Close all
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+                // Open clicked (if was closed)
+                if (!isOpen) item.classList.add('open');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
