@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+  // CF Pages SPA mode: serve correct page based on path
+  (function() {
+    var path = window.location.pathname;
+    if (path === '/privacy' || path === '/privacy/') {
+      window.location.replace('https://shopify-voice-landing.vercel.app/privacy');
+    }
+  })();
+</script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Talkra — AI Voice Agents for Business</title>
